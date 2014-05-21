@@ -21,7 +21,6 @@ module ActiveJob
       args.collect { |arg| ActiveModel::GlobalLocator.locate(arg) || arg }
     end
 
-
     module EnqueueWithSerialization
       def enqueue(*args)
         super *Arguments.serialize(args)
@@ -31,7 +30,6 @@ module ActiveJob
         super timestamp, *Arguments.serialize(args)
       end
     end
-
 
     module PerformWithDeserialization
       def perform_with_hooks(*args)

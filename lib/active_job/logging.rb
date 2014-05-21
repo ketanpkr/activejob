@@ -23,10 +23,9 @@ module ActiveJob
       end
     end
 
-
     class LogSubscriber < ActiveSupport::LogSubscriber
       attach_to :active_job
-      
+
       def enqueue(event)
         info "Enqueued #{event.payload[:job].name} to #{queue_name(event)}" + args_info(event)
       end
@@ -34,7 +33,7 @@ module ActiveJob
       def enqueue_at(event)
         info "Enqueued #{event.payload[:job].name} to #{queue_name(event)} at #{enqueued_at(event)}" + args_info(event)
       end
-      
+
       def perform(event)
         info "Performed #{event.payload[:job].name} from #{queue_name(event)}" + args_info(event)
       end
@@ -47,7 +46,7 @@ module ActiveJob
         def args_info(event)
           event.payload[:args].any? ? ": #{event.payload[:args].inspect}" : ""
         end
-        
+
         def enqueued_at(event)
           Time.at(event.payload[:timestamp]).utc
         end

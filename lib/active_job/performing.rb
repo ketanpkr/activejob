@@ -4,7 +4,7 @@ require 'active_job/logging'
 module ActiveJob
   module Performing
     extend ActiveSupport::Concern
-    
+
     included do
       include Arguments::PerformWithDeserialization
       include Logging::PerformWithLogging
