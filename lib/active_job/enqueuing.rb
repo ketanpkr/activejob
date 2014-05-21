@@ -1,11 +1,11 @@
-require 'active_job/parameters'
+require 'active_job/arguments'
 require 'active_job/logging'
 
 module ActiveJob
   module Enqueuing
     def self.extended(base)
       base.extend Logging::EnqueueWithLogging
-      base.extend Parameters::EnqueueWithSerialization
+      base.extend Arguments::EnqueueWithSerialization
     end
     
     # Push a job onto the queue.  The arguments must be legal JSON types
