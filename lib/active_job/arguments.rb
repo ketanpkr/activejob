@@ -5,20 +5,20 @@ module ActiveJob
   module Arguments
     TYPE_WHITELIST = [ NilClass, Fixnum, Float, String, TrueClass, FalseClass, Hash, Array, Bignum ]
 
-    def self.serialize(params)
-      params.collect do |param|
-        if param.respond_to?(:global_id)
-          param.global_id
-        elsif TYPE_WHITELIST.include?(param.class)
-          param
+    def self.serialize(args)
+      args.collect do |arg|
+        if arg.respond_to?(:global_id)
+          arg.global_id
+        elsif TYPE_WHITELIST.include?(arg.class)
+          arg
         else
-          raise "Unsupported parameter type: #{param.class.name}"
+          raise "Unsupported parameter type: #{arg.class.name}"
         end
       end
     end
 
-    def self.deserialize(params)
-      params.collect { |param| ActiveModel::GlobalLocator.locate(param) || param }
+    def self.deserialize(args)
+      args.collect { |arg| ActiveModel::GlobalLocator.locate(arg) || arg }
     end
 
 
