@@ -5,7 +5,7 @@ module ActiveJob
   module QueueAdapters
     class SneakersAdapter
       @mutex = Mutex.new
-        
+
       class << self
         def enqueue(job, *args)
           @mutex.synchronize do
@@ -23,7 +23,7 @@ module ActiveJob
         include Sneakers::Worker
 
         def work(job, *args)
-          job.new.perform_with_hooks *args
+          job.new.perform_with_hooks(*args)
         end
       end
     end

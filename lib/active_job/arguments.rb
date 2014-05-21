@@ -23,7 +23,7 @@ module ActiveJob
 
     module EnqueueWithSerialization
       def enqueue(*args)
-        super *Arguments.serialize(args)
+        super(*Arguments.serialize(args))
       end
 
       def enqueue_at(timestamp, *args)
@@ -33,7 +33,7 @@ module ActiveJob
 
     module PerformWithDeserialization
       def perform_with_hooks(*args)
-        super *Arguments.deserialize(args)
+        super(*Arguments.deserialize(args))
       end
     end
   end
