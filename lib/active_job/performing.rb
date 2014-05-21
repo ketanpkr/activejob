@@ -1,4 +1,4 @@
-require 'active_job/parameters'
+require 'active_job/arguments'
 require 'active_job/logging'
 
 module ActiveJob
@@ -6,7 +6,7 @@ module ActiveJob
     extend ActiveSupport::Concern
     
     included do
-      include Parameters::PerformWithDeserialization
+      include Arguments::PerformWithDeserialization
       include Logging::PerformWithLogging
     end
 
