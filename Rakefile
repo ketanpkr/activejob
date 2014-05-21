@@ -29,7 +29,6 @@ end
     t.libs << 'test'
     t.test_files = FileList['test/cases/**/*_test.rb']
     t.verbose = true
-    t.warning = true
   end
 
   namespace adapter do
