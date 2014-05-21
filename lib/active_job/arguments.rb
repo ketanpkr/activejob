@@ -23,36 +23,19 @@ module ActiveJob
 
 
     module EnqueueWithSerialization
-      extend ActiveSupport::Concern
-
-      def self.extended(base)
-        base.instance_eval do
-          class << self
-            alias_method_chain :enqueue,    :serialization
-            alias_method_chain :enqueue_at, :serialization
-          end
-        end
+      def enqueue(*args)
+        super *Arguments.serialize(args)
       end
 
-      def enqueue_with_serialization(*args)
-        enqueue_without_serialization *Arguments.serialize(args)
-      end
-
-      def enqueue_at_with_serialization(timestamp, *args)
-        enqueue_at_without_serialization timestamp, *Arguments.serialize(args)
+      def enqueue_at(timestamp, *args)
+        super timestamp, *Arguments.serialize(args)
       end
     end
 
 
     module PerformWithDeserialization
-      extend ActiveSupport::Concern
-
-      included do
-        alias_method_chain :perform_with_hooks, :deserialization
-      end
-
-      def perform_with_hooks_with_deserialization(*args)
-        perform_with_hooks_without_deserialization *Arguments.deserialize(args)
+      def perform_with_hooks(*args)
+        super *Arguments.deserialize(args)
       end
     end
   end

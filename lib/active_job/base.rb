@@ -8,7 +8,7 @@ module ActiveJob
   class Base
     extend QueueAdapter
     extend QueueName
-    extend Enqueuing
+    include Enqueuing
     include Performing
     extend Logging
   end
